@@ -564,7 +564,7 @@ MonoBehaviour:
   m_CellSize: {x: 180, y: 240}
   m_Spacing: {x: 15, y: 15}
   m_Constraint: 1
-  m_ConstraintCount: 8
+  m_ConstraintCount: 6
 --- !u!1 &1125371057
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,6 +1079,7 @@ MonoBehaviour:
   CardPrefab: {fileID: 1420999707902548455, guid: ee53b7a6458bfa14cbe88a7dc7d6d75d, type: 3}
   CardCreateParent: {fileID: 1105191403}
   CardList: []
+  GridLayout: {fileID: 1105191405}
 --- !u!114 &2047560578
 MonoBehaviour:
   m_ObjectHideFlags: 0
