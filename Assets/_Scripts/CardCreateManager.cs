@@ -45,6 +45,10 @@ public class CardCreateManager : MonoBehaviour {
     /// カードを生成する
     /// </summary>
     public void CreateCard() {
+        foreach (Transform child in this.CardCreateParent) {
+            Destroy(child.gameObject);
+        }
+
         // カード情報リスト
         List<CardData> cardDataList = new List<CardData>();
 

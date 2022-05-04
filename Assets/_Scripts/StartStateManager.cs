@@ -28,7 +28,7 @@ public class StartStateManager : MonoBehaviour {
 
         this.GameStartTextRt.DOScale(Vector3.one * 0.5f, 0.5f)
             .OnComplete(() => {
-                // テキストの縮小アニメーション
+                // テキストの拡大アニメーション
                 this.EnlarAnimation();
             });
     }

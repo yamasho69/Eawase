@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-//using DG.Tweening;
+using DG.Tweening;
 
 public class GameSceneManager : MonoBehaviour {
 
@@ -18,18 +18,34 @@ public class GameSceneManager : MonoBehaviour {
     // 時間管理クラス
     public TimerManager timerManager;
 
+    //結果表示クラス
+    public ResultStateManager resultStateManager;
+
+    // スタートステートクラス
+    public StartStateManager startStateManager;
+
     // 経過時間
     private float mElapsedTime;
 
     // ゲームステート管理
     private EGameState mEGameState;
 
+    //タイマー
+    [Header("タイマー")]public GameObject Timer;
+
+    //配置するカードの種類
+    [Header("配置するカードの種類")]public int cardKinds;
+
     void Start() {
         // ゲームステートを初期化
-        this.mEGameState = EGameState.READY;
+        this.mEGameState = EGameState.START;
+
+        // スタートエリアを表示
+        this.startStateManager.gameObject.SetActive(false);
 
         // ゲームのステート管理
         this.mSetGameState();
+
     }
 
     void Update() {
@@ -60,13 +76,21 @@ public class GameSceneManager : MonoBehaviour {
                 // 選択したカードリストを初期化する
                 GameStateController.Instance.SelectedCardIdList.Clear();
             }
+
+            // 配置した全種類のカードを獲得したら
+            if (this.mContainCardIdList.Count >= cardKinds) {
+
+                // ゲームをリザルトステートに遷移する
+                this.mEGameState = EGameState.RESULT;
+                this.mSetGameState();
+            }
         }
     }
 
-    /// <summary>
-    /// ゲームの準備ステートを開始する
-    /// </summary>
-    private void mSetGameReady() {
+        /// <summary>
+        /// ゲームの準備ステートを開始する
+        /// </summary>
+        private void mSetGameReady() {
 
         // カード配布アニメーションが終了した後のコールバック処理を実装する
         this.CardCreate.OnCardAnimeComp = null;
@@ -83,8 +107,7 @@ public class GameSceneManager : MonoBehaviour {
         // カードリストを生成する
         this.CardCreate.CreateCard();
 
-        // 時間を初期化
-        this.mElapsedTime = 0f;
+        Timer.SetActive(true);//タイマーを表示
     }
 
     /// <summary>
@@ -95,9 +118,14 @@ public class GameSceneManager : MonoBehaviour {
         switch (this.mEGameState) {
             // スタート画面
             case EGameState.START:
+                // スタートエリアを表示
+                this.startStateManager.gameObject.SetActive(true);
+                // ゲームスタートの開始
+                this.mSetStartState();
                 break;
             // ゲーム準備期間
             case EGameState.READY:
+                this.startStateManager.gameObject.SetActive(false);
                 // ゲームの準備ステートを開始する
                 this.mSetGameReady();
                 break;
@@ -106,9 +134,53 @@ public class GameSceneManager : MonoBehaviour {
                 break;
             // 結果画面
             case EGameState.RESULT:
+                this.resultStateManager.gameObject.SetActive(true);
+                Timer.SetActive(false);//タイマーを非表示
+                this.mSetResultState();
                 break;
         }
     }
+    /// <summary>
+    /// リザルトステートの設定処理
+    /// </summary>
+    private void mSetResultState() {
+
+        this.resultStateManager.SetTimerText((int)this.mElapsedTime);
+    }
+
+    /// <summary>
+    /// スタート画面に遷移する
+    /// </summary>
+    public void OnBackStartState() {
+        // 時間を初期化
+        this.mElapsedTime = 0f;
+
+        // ResultAreaを非表示にする
+        this.resultStateManager.gameObject.SetActive(false);
+
+        // ゲームステートをStartに変更
+        this.mEGameState = EGameState.START;
+
+        // ゲームのステート管理
+        this.mSetGameState();
+    }
+
+    private void mSetStartState() {
+        // テキストの拡大縮小アニメーション
+        this.startStateManager.EnlarAnimation();
+    }
+
+    /// <summary>
+    /// Readyステートに遷移する
+    /// </summary>
+    public void OnGameStart() {
+        // ゲームステートを初期化
+        this.mEGameState = EGameState.READY;
+
+        // ゲームのステート管理
+        this.mSetGameState();
+    }
+
 }
 /*
 // 一致したカードIDリスト
