@@ -8,7 +8,6 @@ using System.Linq;
 using DG.Tweening;
 
 public class CardCreateManager : MonoBehaviour {
-
     // 生成するCardオブジェクト
     public Card CardPrefab;
 
@@ -23,6 +22,9 @@ public class CardCreateManager : MonoBehaviour {
 
     // GridLayoutGroup
     public GridLayoutGroup GridLayout;
+
+    // カードの生成アニメーションが終わった時
+    public Action OnCardAnimeComp;
 
     // カード配列のインデックス
     private int mIndex;
@@ -160,6 +162,10 @@ public class CardCreateManager : MonoBehaviour {
                 if (this.mIndex >= this.mRandomCardDataList.Count) {
                     // GridLayoutを有効にし、生成処理を終了する
                     this.GridLayout.enabled = true;
+                    // アニメーション終了時の関数を宣言する
+                    if (this.OnCardAnimeComp != null) {
+                        this.OnCardAnimeComp();
+                    }
                 } else {
                     // GridLayoutの折り返し地点に来たら
                     if (this.mIndex % this.GridLayout.constraintCount == 0) {
