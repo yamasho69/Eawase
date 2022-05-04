@@ -53,6 +53,13 @@ public class CardCreateManager : MonoBehaviour {
         imgList.Add(Resources.Load<Sprite>("Image/0"));
         imgList.Add(Resources.Load<Sprite>("Image/1"));
         imgList.Add(Resources.Load<Sprite>("Image/2"));
+        imgList.Add(Resources.Load<Sprite>("Image/3"));
+        imgList.Add(Resources.Load<Sprite>("Image/4"));
+        imgList.Add(Resources.Load<Sprite>("Image/5"));
+        imgList.Add(Resources.Load<Sprite>("Image/6"));
+        imgList.Add(Resources.Load<Sprite>("Image/7"));
+        imgList.Add(Resources.Load<Sprite>("Image/8"));
+        imgList.Add(Resources.Load<Sprite>("Image/9"));
 
         // forを回す回数を取得する
         int loopCnt = imgList.Count;
@@ -69,7 +76,6 @@ public class CardCreateManager : MonoBehaviour {
 
         // 生成したカードリスト２つ分のリストを生成する
         List<CardData> SumCardDataList = new List<CardData>();
-        SumCardDataList.AddRange(cardDataList);
         SumCardDataList.AddRange(cardDataList);
 
         // ランダムリストの初期化
