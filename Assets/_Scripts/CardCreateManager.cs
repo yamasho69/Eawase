@@ -66,8 +66,7 @@ public class CardCreateManager : MonoBehaviour {
             this.CardList.Add(card);
         }
     }
-
-    /// <summary>
+    // <summary>
     /// 取得していないカードを背面にする
     /// </summary>
     public void HideCardList(List<int> containCardIdList) {
@@ -80,15 +79,14 @@ public class CardCreateManager : MonoBehaviour {
                 // カードを非表示にする
                 _card.SetInvisible();
             }
-            // 獲得していないカードは裏面表示にする
-            else {
+            // カードが表麺 && 獲得していないカードは裏面表示にする
+            else if (_card.IsSelected) {
 
                 // カードを裏面表示にする
                 _card.SetHide();
             }
         }
     }
-
 }
 /*
     // 生成するCardオブジェクト
