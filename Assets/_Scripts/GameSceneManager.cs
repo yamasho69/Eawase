@@ -15,6 +15,12 @@ public class GameSceneManager : MonoBehaviour {
     // カード生成マネージャクラス
     public CardCreateManager CardCreate;
 
+    // 時間管理クラス
+    public TimerManager timerManager;
+
+    // 経過時間
+    private float mElapsedTime;
+
     void Start() {
 
         // 一致したカードIDリストを初期化
@@ -22,9 +28,16 @@ public class GameSceneManager : MonoBehaviour {
 
         // カードリストを生成する
         this.CardCreate.CreateCard();
+
+        // 時間を初期化
+        this.mElapsedTime = 0f;
     }
 
     void Update() {
+
+        this.mElapsedTime += Time.deltaTime;
+
+        this.timerManager.SetText((int)this.mElapsedTime);
 
         // 選択したカードが２枚以上になったら
         if (GameStateController.Instance.SelectedCardIdList.Count >= 2) {

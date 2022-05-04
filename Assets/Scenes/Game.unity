@@ -727,11 +727,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 68e65a56bcd51a04690081419aa0f598, type: 3}
-    m_FontSize: 42
+    m_FontSize: 64
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 42
+    m_MinSize: 0
+    m_MaxSize: 64
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 0
@@ -1093,3 +1093,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardCreate: {fileID: 2047560577}
+  timerManager: {fileID: 1508755363}
