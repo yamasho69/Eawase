@@ -8,6 +8,7 @@ public class StartStateManager : MonoBehaviour {
 
     // ゲームの開始テキストの座標
     public RectTransform GameStartTextRt;
+    private Tween tween;
 
     /// <summary>
     /// テキストの拡大アニメーション
@@ -31,5 +32,12 @@ public class StartStateManager : MonoBehaviour {
                 // テキストの拡大アニメーション
                 this.EnlarAnimation();
             });
+    }
+
+    private void OnDisable() {
+        // Tween破棄
+        if (DOTween.instance != null) {
+            tween?.Kill();
+        }
     }
 }

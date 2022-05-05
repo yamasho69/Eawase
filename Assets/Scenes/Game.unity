@@ -1030,7 +1030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &501542134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2986,7 +2986,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u7D75\u753B\u306E\u8AAC\u660E"
+  m_Text: "\u7D75\u753B\u300C\u3072\u307E\u308F\u308A\u300D\u306E\u7D39\u4ECB"
 --- !u!222 &995837725
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3655,7 +3655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1182443351
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4446,6 +4446,7 @@ GameObject:
   - component: {fileID: 1578136538}
   - component: {fileID: 1578136541}
   - component: {fileID: 1578136540}
+  - component: {fileID: 1578136543}
   - component: {fileID: 1578136539}
   - component: {fileID: 1578136542}
   m_Layer: 5
@@ -4552,9 +4553,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2047560578}
-        m_TargetAssemblyTypeName: GameSceneManager, Assembly-CSharp
-        m_MethodName: OnBackStartState
+      - m_Target: {fileID: 1578136543}
+        m_TargetAssemblyTypeName: ScenesLoad, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4587,6 +4588,19 @@ MonoBehaviour:
   m_EffectColor: {r: 0.2735849, g: 0.075324655, b: 0.01677644, a: 1}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &1578136543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578136537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9abe390afa5c6e4caa6399dc50e0fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 2047560575}
 --- !u!1 &1651486428
 GameObject:
   m_ObjectHideFlags: 0
@@ -6003,7 +6017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -180, y: 194}
+  m_AnchoredPosition: {x: -335, y: 194}
   m_SizeDelta: {x: 110, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084453288
@@ -6098,7 +6112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: 181}
+  m_AnchoredPosition: {x: 110, y: 181}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2097321326

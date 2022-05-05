@@ -28,6 +28,8 @@ public class Card : MonoBehaviour {
     // 座標情報
     public RectTransform mRt;
 
+    private Tween tween;
+
     private CardCreateManager cardCreateManager;
 
     [Header("めくる音")]public AudioClip sound1;
@@ -122,7 +124,7 @@ public class Card : MonoBehaviour {
     ///  <summary>
     /// カードを背面表記にする
     /// </summary>
-    public void SetHide() {
+     public void SetHide() {
         cardCreateManager.canTurnCard = 0;//数がずれることがあるので2枚目食った時点で0にする。
         Invoke("SetHide2", 1.0f);
     }
@@ -173,6 +175,14 @@ public class Card : MonoBehaviour {
     public void SetInvisible3() {
         cardCreateManager.canTurnCard = 2;
     }
+
+    private void OnDisable() {
+        // Tween破棄
+        if (DOTween.instance != null) {
+            tween?.Kill();
+        }
+    }
+
 }
 
 /// <summary>
