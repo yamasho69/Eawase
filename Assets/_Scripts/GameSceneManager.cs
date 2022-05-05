@@ -33,8 +33,13 @@ public class GameSceneManager : MonoBehaviour {
     //タイマー
     [Header("タイマー")]public GameObject Timer;
 
+    //カードエリア
+    [Header("カードエリア")] public GameObject CardArea;
+
     //配置するカードの種類
     [Header("配置するカードの種類")]public int cardKinds;
+
+    private CardCreateManager cardCreateManager;
 
     void Start() {
         // ゲームステートを初期化
@@ -45,6 +50,9 @@ public class GameSceneManager : MonoBehaviour {
 
         // ゲームのステート管理
         this.mSetGameState();
+
+        GameObject gameObject = GameObject.Find("GameManager");
+        cardCreateManager = gameObject.GetComponent<CardCreateManager>();
 
     }
 
@@ -106,8 +114,6 @@ public class GameSceneManager : MonoBehaviour {
 
         // カードリストを生成する
         this.CardCreate.CreateCard();
-
-        Timer.SetActive(true);//タイマーを表示
     }
 
     /// <summary>
@@ -126,14 +132,18 @@ public class GameSceneManager : MonoBehaviour {
             // ゲーム準備期間
             case EGameState.READY:
                 this.startStateManager.gameObject.SetActive(false);
+                this.CardArea.gameObject.SetActive(true);
                 // ゲームの準備ステートを開始する
                 this.mSetGameReady();
                 break;
             // ゲーム中
             case EGameState.GAME:
+                cardCreateManager.canTurnCard = 2;
+                Timer.SetActive(true);//タイマーを表示
                 break;
             // 結果画面
             case EGameState.RESULT:
+                this.CardArea.gameObject.SetActive(false);
                 this.resultStateManager.gameObject.SetActive(true);
                 Timer.SetActive(false);//タイマーを非表示
                 this.mSetResultState();
