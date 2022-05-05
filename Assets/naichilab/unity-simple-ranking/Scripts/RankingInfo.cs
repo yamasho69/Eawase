@@ -11,6 +11,7 @@ namespace naichilab
     [CreateAssetMenu]
     public class RankingInfo : ScriptableObject
     {
+
         /// <summary>
         /// リーダーボード名
         /// </summary>
@@ -36,8 +37,9 @@ namespace naichilab
         /// <summary>
         /// 表示カスタムフォーマット
         /// </summary>
+        
+        
         public string CustomFormat;
-
 
         /// <summary>
         /// テキストからIScoreを復元する
