@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using NCMB;
 
 public class GameSceneManager : MonoBehaviour {
 
@@ -41,6 +42,9 @@ public class GameSceneManager : MonoBehaviour {
 
     private CardCreateManager cardCreateManager;
 
+    [Header("正解音")] public AudioClip sound1;
+    AudioSource audioSource;
+
     void Start() {
         // ゲームステートを初期化
         this.mEGameState = EGameState.START;
@@ -53,7 +57,7 @@ public class GameSceneManager : MonoBehaviour {
 
         GameObject gameObject = GameObject.Find("GameManager");
         cardCreateManager = gameObject.GetComponent<CardCreateManager>();
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update() {
@@ -62,7 +66,7 @@ public class GameSceneManager : MonoBehaviour {
         if (this.mEGameState == EGameState.GAME) {
             this.mElapsedTime += Time.deltaTime;
 
-            this.timerManager.SetText((int)this.mElapsedTime);
+            this.timerManager.SetText(mElapsedTime);
 
             // 選択したカードが２枚以上になったら
             if (GameStateController.Instance.SelectedCardIdList.Count >= 2) {
@@ -76,6 +80,7 @@ public class GameSceneManager : MonoBehaviour {
                     Debug.Log($"Contains! {selectedId}");
                     // 一致したカードIDを保存する
                     this.mContainCardIdList.Add(selectedId);
+                    audioSource.PlayOneShot(sound1);
                 }
 
                 // カードの表示切り替えを行う
@@ -155,7 +160,13 @@ public class GameSceneManager : MonoBehaviour {
     /// </summary>
     private void mSetResultState() {
 
-        this.resultStateManager.SetTimerText((int)this.mElapsedTime);
+        this.resultStateManager.SetTimerText(mElapsedTime);
+
+        String clearTime1 = mElapsedTime.ToString("f2");//小数点2桁まで
+        float clearTime2 = float.Parse(clearTime1);
+
+        // Type == Number の場合
+        naichilab.RankingLoader.Instance.SendScoreAndShowRanking(clearTime2);
     }
 
     /// <summary>
@@ -190,108 +201,4 @@ public class GameSceneManager : MonoBehaviour {
         // ゲームのステート管理
         this.mSetGameState();
     }
-
 }
-/*
-// 一致したカードIDリスト
-private List<int> mContainCardIdList = new List<int>();
-
-// カード生成マネージャクラス
-public CardCreateManager CardCreate;
-
-// 時間管理クラス
-public TimerManager timerManager;
-
-// 経過時間
-private float mElapsedTime;
-
-// ゲームステート管理
-private EGameState mEGameState;
-void Start() {
-
-    // ゲームステートを初期化
-    this.mEGameState = EGameState.READY;
-
-    // ゲームのステート管理
-    this.mSetGameState();
-}
-
-void Update() {
-
-    // GameState が GAME状態なら
-    if (this.mEGameState == EGameState.GAME) {
-        this.mElapsedTime += Time.deltaTime;
-
-        this.timerManager.SetText((int)this.mElapsedTime);
-
-        // 選択したカードが２枚以上になったら
-        if (GameStateController.Instance.SelectedCardIdList.Count >= 2) {
-
-            // 最初に選択したCardIDを取得する
-            int selectedId = GameStateController.Instance.SelectedCardIdList[0];
-
-            // 2枚目にあったカードと一緒だったら
-            if (selectedId == GameStateController.Instance.SelectedCardIdList[1]) {
-
-                Debug.Log($"Contains! {selectedId}");
-                // 一致したカードIDを保存する
-                this.mContainCardIdList.Add(selectedId);
-            }
-
-            // カードの表示切り替えを行う
-            this.CardCreate.HideCardList(this.mContainCardIdList);
-
-            // 選択したカードリストを初期化する
-            GameStateController.Instance.SelectedCardIdList.Clear();
-        }
-    }
-
-}
-
-/// <summary>
-/// ゲームステートで処理を変更する
-/// </summary>
-private void mSetGameState() {
-
-    switch (this.mEGameState) {
-        // スタート画面
-        case EGameState.START:
-            break;
-        // ゲーム準備期間
-        case EGameState.READY:
-            // ゲームの準備ステートを開始する
-            this.mSetGameReady();
-            break;
-        // ゲーム中
-        case EGameState.GAME:
-            break;
-        // 結果画面
-        case EGameState.RESULT:
-            break;
-    }
-}
-
-/// <summary>
-/// ゲームの準備ステートを開始する
-/// </summary>
-private void mSetGameReady() {
-
-    // カード配布アニメーションが終了した後のコールバック処理を実装する
-    this.CardCreate.OnCardAnimeComp = null;
-    this.CardCreate.OnCardAnimeComp = () => {
-
-        // ゲームステートをGAME状態に変更する
-        this.mEGameState = EGameState.GAME;
-        this.mSetGameState();
-    };
-
-    // 一致したカードIDリストを初期化
-    this.mContainCardIdList.Clear();
-
-    // カードリストを生成する
-    this.CardCreate.CreateCard();
-
-    // 時間を初期化
-    this.mElapsedTime = 0f;
-}
-}*/

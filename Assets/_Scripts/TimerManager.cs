@@ -11,8 +11,8 @@ public class TimerManager : MonoBehaviour {
     /// <summary>
     /// タイマーのテキストの設定
     /// </summary>
-    public void SetText(int time) {
+    public void SetText(float time) {
 
-        this.TimerText.text = "Time : " + time;
+        this.TimerText.text = "Time : " + time.ToString("f2");//小数点2桁まで
     }
 }

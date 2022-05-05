@@ -15,7 +15,7 @@ public class ResultStateManager : MonoBehaviour {
     /// <summary>
     /// ゲームで経過した時間を表示する
     /// </summary>
-    public void SetTimerText(int timer) {
-        this.TimerText.text = timer.ToString();
+    public void SetTimerText(float timer) {
+        this.TimerText.text = timer.ToString("f2");//小数点2桁まで
     }
 }
