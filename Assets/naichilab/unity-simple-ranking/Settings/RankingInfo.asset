@@ -16,4 +16,4 @@ MonoBehaviour:
   ClassName: ClearTime
   Type: 0
   Order: 0
-  CustomFormat: 
+  CustomFormat: F2
