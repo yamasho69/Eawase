@@ -125,7 +125,7 @@ public class Card : MonoBehaviour {
     /// カードを背面表記にする
     /// </summary>
      public void SetHide() {
-        cardCreateManager.canTurnCard = 0;//数がずれることがあるので2枚目食った時点で0にする。
+        cardCreateManager.canTurnCard = 0;//数がずれることがあるので2枚めくった時点で0にする。
         Invoke("SetHide2", 1.0f);
     }
 
@@ -156,7 +156,7 @@ public class Card : MonoBehaviour {
     /// カードを非表示にする
     /// </summary>
     public void SetInvisible() {
-        cardCreateManager.canTurnCard = 0;//数がずれることがあるので2枚目食った時点で0にする。
+        cardCreateManager.canTurnCard = 0;//数がずれることがあるので2枚めくった時点で0にする。
         Invoke("SetInvisible2", 0.5f);
     }
 
